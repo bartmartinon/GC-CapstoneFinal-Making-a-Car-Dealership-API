@@ -23,11 +23,12 @@ namespace CarDealershipAPI
         }
 
         public IConfiguration Configuration { get; }
-        string connection = "Server=.\\SQLExpress;Database=CarDealershipDB;Trusted_Connection=True;ConnectRetryCount=0;";
+        private string connection = null;
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            connection = Configuration["ConnectionStrings:CarApiConnection"];
             services.AddControllers();
             services.AddDbContext<CarDealershipDBContext>(options => options.UseSqlServer(connection));
 
